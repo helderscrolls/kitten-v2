@@ -1,1 +1,77 @@
-<p>form works!</p>
+<div class="container" novalidate>
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit(formGroup.value)"
+    class="form"
+  >
+    <mat-form-field class="form-element" appearance="fill">
+      <mat-label>Enter your dog name</mat-label>
+      <input matInput placeholder="Gecko" formControlName="name" />
+      <mat-error *ngIf="!name.valid && name.touched">
+        {{ requiredErrorText }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="fill">
+      <mat-label>Enter your dog race</mat-label>
+      <input matInput placeholder="Labrador" formControlName="race" />
+      <mat-error
+        *ngIf="
+          !formGroup.controls['race'].valid &&
+          formGroup.controls['race'].touched
+        "
+      >
+        {{ requiredErrorText }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="fill">
+      <mat-label>Enter your dog age</mat-label>
+      <input matInput placeholder="6 years old" formControlName="age" />
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="fill">
+      <mat-label>Enter a photo url of your dog</mat-label>
+      <input
+        matInput
+        placeholder="http://www.cute-doggo-nude.com"
+        formControlName="img"
+      />
+      <mat-error *ngIf="!img.valid && img.touched">
+        {{ requiredErrorText }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Lorem ipsum dolor sit amet"
+        matTextareaAutosize
+        matAutosizeMinRows="2"
+        matAutosizeMaxRows="5"
+        formControlName="description"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          !formGroup.controls['description'].valid &&
+          formGroup.controls['description'].touched
+        "
+      >
+        Required field, must be between 5 and 20 characters.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-element">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="button"
+        [disabled]="!formGroup.valid"
+      >
+        Submit Form
+      </button>
+    </div>
+  </form>
+</div>
