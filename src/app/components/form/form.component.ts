@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { ProductService } from 'src/app/services/product-service.service';
-import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-form',
@@ -19,7 +18,6 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private router: Router,
-    private firebase: AngularFireDatabase,
   ) { }
 
   ngOnInit(): void {
