@@ -1,14 +1,10 @@
-<mat-card class="example-card" *ngFor="let makeup of makeupList">
+<mat-card class="example-card" *ngFor="let makeup of makeupList | async">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title> {{makeup.name}} </mat-card-title>
     <mat-card-subtitle>{{makeup.brand}}</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    src={{makeup.img}}
-    alt="Photo of makeup"
-  />
+  <img mat-card-image src={{makeup.img}} alt="Photo of makeup" />
   <mat-card-content>
     <p>
       Date of release: {{makeup.date}}

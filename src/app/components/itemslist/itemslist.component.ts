@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Observable } from 'rxjs';
 import { ProductService } from '../../services/product-service.service';
 
 @Component({
@@ -8,11 +8,9 @@ import { ProductService } from '../../services/product-service.service';
   styleUrls: ['./itemslist.component.scss']
 })
 export class ItemslistComponent implements OnInit {
-  makeupList: Array<object>;
-  makeup: any;
+  makeupList: Observable<any[]>;
 
   constructor(private productService: ProductService) {
-
   }
 
   ngOnInit() {

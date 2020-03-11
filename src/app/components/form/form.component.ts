@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { ProductService } from 'src/app/services/product-service.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-form',
@@ -14,13 +15,18 @@ export class FormComponent implements OnInit {
   requiredErrorText = 'This field is required.';
   post: any = '';
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService,
+    private router: Router,
+    private firebase: AngularFireDatabase,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     // let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
       name: [null, Validators.required],
@@ -58,9 +64,7 @@ export class FormComponent implements OnInit {
   // }
 
   onSubmit(formValue) {
-    this.productService.makeupList.push(formValue);
-    this.productService.storeMakeupList();
-
+    this.productService.storeMakeupList(formValue);
     this.router.navigate(['/home']);
   }
 }

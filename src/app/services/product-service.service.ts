@@ -1,29 +1,24 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
+import { AngularFireDatabase } from '@angular/fire/database';
+import 'firebase/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  constructor(private firebase: AngularFireDatabase) {
 
-  makeupList = [];
-
-    storeMakeupList() {
-      firebase.database().ref('/home').set(this.makeupList);
-      // we are calling firebase database and we want it to store the information in the page
-      // where the path is home and thats why we use set cause it will replace the actual homepage
-      // with new values(this.makeupList)
-    }
-
-    retrieveMakeupList() {
-      firebase.database().ref('/home').on('value', (data) => {
-        this.makeupList = data.val() ? data.val() : [];
-        // we want to retrieve the makeupList so same proccess as before but this time we use on
-        // instead of set to react to the modifs of the database and we use a "ternaire" to retrieve data
-        // from the server and if it doesnt exist it will return an empty array
-      });
-    }
   }
+
+  storeMakeupList(formValue) {
+    const db = this.firebase.list('makeup-kitten-story');
+    db.push(formValue);
+  }
+
+  retrieveMakeupList() {
+    return this.firebase.list('makeup-kitten-story').valueChanges();
+  }
+}
 
 
   // makeupList = [
